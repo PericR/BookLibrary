@@ -1,5 +1,6 @@
 ﻿using BookLibrary.DTOs;
 using BookLibrary.Entities;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,8 @@ namespace BookLibrary.Interfaces
 {
     public interface IBookService
     {
-        void Update(Book book);
-        Task<bool> SaveAllAsync();
-        Task<IEnumerable<BookDto>> GetBooksAsync();
+        Task AddBook(Book book);
+        Task<IEnumerable<GetBookDto>> GetBooksAsync();
         Task<Book> GetBookByIdAsync();
     }
 }
