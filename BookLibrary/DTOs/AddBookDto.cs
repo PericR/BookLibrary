@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookLibrary.Entities
+namespace BookLibrary.DTOs
 {
-    public class Book
+    public class AddBookDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,6 +14,5 @@ namespace BookLibrary.Entities
         public string Description { get; set; }
         public string ShortIntro { get; set; }
         public DateTime PublishedAt { get; set; }
-        public DateTime Created { get; set; } = DateTime.Now;
     }
 }
