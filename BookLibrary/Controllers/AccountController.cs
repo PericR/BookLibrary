@@ -29,7 +29,7 @@ namespace BookLibrary.Controllers
 
             if(!result.Succeeded)
             {
-                return BadRequest("User registration failed.");
+                return BadRequest(result.Errors);
             }
 
             await this.userManager.AddToRoleAsync(user, "Visitor");
