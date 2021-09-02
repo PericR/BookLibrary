@@ -25,15 +25,17 @@ namespace BookLibrary.Services
             this.mapper = mapper;
         }
 
-        public async Task AddBook(Book book)
+        public async Task AddBook(AddBookDto addBookDto)
         {
-            this.dataContext.Books.Add(book);
+            Book bookToAdd = this.mapper.Map<Book>(addBookDto);
+            this.dataContext.Books.Add(bookToAdd);
             await this.dataContext.SaveChangesAsync();
         }
 
-        public Task<Book> GetBookByIdAsync()
+        public async Task<GetBookDto> GetBookByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var book = await this.dataContext.Books.FindAsync(id);
+            return this.mapper.Map<GetBookDto>(book);
         }
 
         public async Task<IEnumerable<GetBookDto>> GetBooksAsync()

@@ -11,25 +11,32 @@ namespace BookLibrary.Controllers
 {
     public class TestController : BaseApiController
     {
-        private readonly IBookService _bookService;
+        private readonly IBookService bookService;
 
         public TestController(IBookService bookService)
         {
-            _bookService = bookService;
+            this.bookService = bookService;
         }
 
         [HttpPost("add-book")]
-        public async Task<ActionResult> AddBook(Book book)
+        public async Task<ActionResult> AddBook(AddBookDto addBookDto)
         {
-            await _bookService.AddBook(book);
+            await this.bookService.AddBook(addBookDto);
             return Ok();
         }
 
         [HttpGet("books")]
         public async Task<ActionResult<IEnumerable<GetBookDto>>> GetBooks()
         {
-            var books = await this._bookService.GetBooksAsync();
+            var books = await this.bookService.GetBooksAsync();
             return Ok(books);
+        }
+
+        [HttpGet("book/{id}")]
+        public async Task<ActionResult<GetBookDto>> GetBookById(int id)
+        {
+            var book = await this.bookService.GetBookByIdAsync(id);
+            return Ok(book);
         }
     }
 }

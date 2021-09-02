@@ -10,8 +10,8 @@ namespace BookLibrary.Interfaces
 {
     public interface IBookService
     {
-        Task AddBook(Book book);
+        Task AddBook(AddBookDto addBookDto);
         Task<IEnumerable<GetBookDto>> GetBooksAsync();
-        Task<Book> GetBookByIdAsync();
+        Task<GetBookDto> GetBookByIdAsync(int id);
     }
 }
