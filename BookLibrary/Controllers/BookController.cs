@@ -1,6 +1,7 @@
 ﻿using BookLibrary.DTOs;
 using BookLibrary.Entities;
 using BookLibrary.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,15 +10,16 @@ using System.Threading.Tasks;
 
 namespace BookLibrary.Controllers
 {
-    public class TestController : BaseApiController
+    public class BookController : BaseApiController
     {
         private readonly IBookService bookService;
 
-        public TestController(IBookService bookService)
+        public BookController(IBookService bookService)
         {
             this.bookService = bookService;
         }
 
+        [Authorize]
         [HttpPost("add-book")]
         public async Task<ActionResult> AddBook(AddBookDto addBookDto)
         {
@@ -25,6 +27,7 @@ namespace BookLibrary.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpGet("books")]
         public async Task<ActionResult<IEnumerable<GetBookDto>>> GetBooks()
         {

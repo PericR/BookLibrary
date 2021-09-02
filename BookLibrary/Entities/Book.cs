@@ -13,6 +13,7 @@ namespace BookLibrary.Entities
         public string Genre { get; set; }
         public string Description { get; set; }
         public string ShortIntro { get; set; }
+        public double Price { get; set; }
         public DateTime PublishedAt { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
     }
