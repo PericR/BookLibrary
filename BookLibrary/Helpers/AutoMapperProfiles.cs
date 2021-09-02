@@ -12,7 +12,7 @@ namespace BookLibrary.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Book, BookDto>();
+            CreateMap<Book, GetBookDto>();
         }
     }
 }
