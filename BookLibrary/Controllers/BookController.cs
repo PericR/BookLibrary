@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace BookLibrary.Controllers
 {
-    public class TestController : BaseApiController
+    public class BookController : BaseApiController
     {
         private readonly IBookService bookService;
 
-        public TestController(IBookService bookService)
+        public BookController(IBookService bookService)
         {
             this.bookService = bookService;
         }
