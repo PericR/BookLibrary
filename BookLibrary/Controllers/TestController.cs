@@ -1,4 +1,5 @@
 ﻿using BookLibrary.DTOs;
+using BookLibrary.Entities;
 using BookLibrary.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,10 +18,18 @@ namespace BookLibrary.Controllers
             _bookService = bookService;
         }
 
-        /*[HttpGet]
-        public async Task<ActionResult<IEnumerable<BookDto>>> GetAllBooks()
+        [HttpPost("add-book")]
+        public async Task<ActionResult> AddBook(Book book)
         {
-            return await _bookService.GetBooksAsync();
-        }*/
+            await _bookService.AddBook(book);
+            return Ok();
+        }
+
+        [HttpGet("books")]
+        public async Task<ActionResult<IEnumerable<GetBookDto>>> GetBooks()
+        {
+            var books = await this._bookService.GetBooksAsync();
+            return Ok(books);
+        }
     }
 }
