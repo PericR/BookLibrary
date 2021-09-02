@@ -1,5 +1,6 @@
 using BookLibrary.Data;
 using BookLibrary.Entities;
+using BookLibrary.Extensions;
 using BookLibrary.Interfaces;
 using BookLibrary.Services;
 using Microsoft.AspNetCore.Builder;
@@ -32,13 +33,7 @@ namespace BookLibrary
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DataContext>();
-            services.AddAutoMapper(typeof(Startup));
-            services.AddScoped<IBookService, BookService>();
-            services.AddDbContext<DataContext>(options =>
-            {
-                options.UseSqlite(Configuration.GetConnectionString("sqlConnection"));
-            });
+            services.AddAplicationServices(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
