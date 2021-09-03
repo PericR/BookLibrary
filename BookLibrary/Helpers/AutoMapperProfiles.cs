@@ -16,6 +16,8 @@ namespace BookLibrary.Helpers
             CreateMap<AddBookDto, Book>();
             CreateMap<UserRegistrationDto, User>();
             CreateMap<AddInvoiceDto, Invoice>();
+            CreateMap<GetInvoiceDto, Invoice>();
+            CreateMap<Invoice, GetInvoiceDto>();
         }
     }
 }

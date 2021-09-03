@@ -13,5 +13,6 @@ namespace BookLibrary.Interfaces
         Task AddBook(AddBookDto addBookDto);
         Task<IEnumerable<GetBookDto>> GetBooksAsync();
         Task<GetBookDto> GetBookByIdAsync(int id);
+        Task<Book> GetBookByIdForInvoiceAsync(int id);
     }
 }
