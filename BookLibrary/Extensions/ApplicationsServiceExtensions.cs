@@ -20,6 +20,8 @@ namespace BookLibrary.Extensions
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<DataContext>();
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IBookService, BookService>();
+            services.AddScoped<IInvoiceService, InvoiceService>();
+            services.AddScoped<IAuthService, AuthService>();
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(config.GetConnectionString("sqlConnection"));
