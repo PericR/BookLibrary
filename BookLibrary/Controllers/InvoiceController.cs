@@ -26,7 +26,9 @@ namespace BookLibrary.Controllers
         [HttpPost("new-invoice")]
         public async Task<ActionResult> AddInvoice(AddInvoiceDto addInvoiceDto)
         {
+            var userid = this.User.Identity.Name;
             addInvoiceDto.User = await this.userManager.GetUserAsync(HttpContext.User);
+
             addInvoiceDto.Book = await this.bookService.GetBookByIdForInvoiceAsync(1);
             await this.invoiceService.AddInvoice(addInvoiceDto);
 
