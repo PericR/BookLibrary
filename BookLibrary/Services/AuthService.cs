@@ -27,12 +27,19 @@ namespace BookLibrary.Services
             this.key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
 
-        public string CreateToken(User user)
+        public async Task<string> CreateToken(User user)
         {
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName)
+                new Claim(JwtRegisteredClaimNames.NameId, user.UserName),
+     
             };
+
+            var roles = await this.userManager.GetRolesAsync(user);
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var creds = new SigningCredentials(this.key, SecurityAlgorithms.HmacSha512Signature);
 
@@ -49,9 +56,8 @@ namespace BookLibrary.Services
             return tokenHandler.WriteToken(token);
         }
 
-        public async Task<bool> ValidateUser(UserLoginDto userLoginDto)
+        public async Task<bool> ValidateUser(UserLoginDto userLoginDto, User user)
         {
-            User user = await this.userManager.FindByNameAsync(userLoginDto.UserName);
             return (user != null && await this.userManager.CheckPasswordAsync(user, userLoginDto.Password));
         }
     }

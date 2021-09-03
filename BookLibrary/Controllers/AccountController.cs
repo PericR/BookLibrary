@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BookLibrary.DTOs;
 using BookLibrary.Entities;
+using BookLibrary.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +18,14 @@ namespace BookLibrary.Controllers
         private readonly IMapper mapper;
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly IAuthService authService;
 
-        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(IMapper mapper, UserManager<User> userManager, SignInManager<User> signInManager, IAuthService authService)
         {
             this.mapper = mapper;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.authService = authService;
         }
 
         [HttpPost("register")]
@@ -49,12 +52,11 @@ namespace BookLibrary.Controllers
                 return BadRequest("User login failed.");
             }
 
-            var result = await this.signInManager.PasswordSignInAsync(userLoginDto.UserName, userLoginDto.Password, userLoginDto.RememberMe, false);
+            User user = await this.userManager.FindByNameAsync(userLoginDto.UserName);
 
-            if (result.Succeeded)
+            if (await this.authService.ValidateUser(userLoginDto, user))
             {
-                
-                return Ok("Successfully loged.");
+                return Ok((new { Token = this.authService.CreateToken(user) }));
             }
             else
             {

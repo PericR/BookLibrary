@@ -9,7 +9,7 @@ namespace BookLibrary.Interfaces
 {
     public interface IAuthService
     {
-        Task<bool> ValidateUser(UserLoginDto userLoginDto);
-        string CreateToken(User user);
+        Task<bool> ValidateUser(UserLoginDto userLoginDto, User user);
+        Task<string> CreateToken(User user);
     }
 }
