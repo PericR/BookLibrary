@@ -4,9 +4,12 @@ using BookLibrary.Data;
 using BookLibrary.DTOs;
 using BookLibrary.Entities;
 using BookLibrary.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace BookLibrary.Services
@@ -15,7 +18,6 @@ namespace BookLibrary.Services
     {
         private readonly DataContext dataContext;
         private readonly IMapper mapper;
-
         public InvoiceService(DataContext dataContext, IMapper mapper)
         {
             this.dataContext = dataContext;
@@ -26,7 +28,7 @@ namespace BookLibrary.Services
         {
             Invoice invoiceToAdd = this.mapper.Map<Invoice>(addInvoiceDto);
             this.dataContext.Invoices.Add(invoiceToAdd);
-
+            
             await this.dataContext.SaveChangesAsync();
         }
 
