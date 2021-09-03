@@ -1,10 +1,15 @@
 using BookLibrary.Extensions;
+using BookLibrary.Helpers;
+using BookLibrary.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using NLog;
+using System.IO;
 
 namespace BookLibrary
 {
@@ -12,6 +17,7 @@ namespace BookLibrary
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -30,7 +36,7 @@ namespace BookLibrary
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerManager loggerManager)
         {
             if (env.IsDevelopment())
             {
@@ -38,6 +44,8 @@ namespace BookLibrary
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BookLibrary v1"));
             }
+
+            app.ConfigureExceptionHandler(loggerManager);
 
             app.UseHttpsRedirection();
 

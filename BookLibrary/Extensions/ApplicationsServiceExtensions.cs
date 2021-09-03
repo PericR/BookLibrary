@@ -1,5 +1,6 @@
 ﻿using BookLibrary.Data;
 using BookLibrary.Entities;
+using BookLibrary.Helpers;
 using BookLibrary.Interfaces;
 using BookLibrary.Services;
 using Microsoft.AspNetCore.Identity;
@@ -22,6 +23,7 @@ namespace BookLibrary.Extensions
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddSingleton<ILoggerManager, LoggerManager>();
 
             services.AddDbContext<DataContext>(options =>
             {
