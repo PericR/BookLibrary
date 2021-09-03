@@ -38,6 +38,11 @@ namespace BookLibrary.Services
             return this.mapper.Map<GetBookDto>(book);
         }
 
+        public async Task<Book> GetBookByIdForInvoiceAsync(int id)
+        {
+            return await this.dataContext.Books.FindAsync(id);
+        }
+
         public async Task<IEnumerable<GetBookDto>> GetBooksAsync()
         {
             return await this.dataContext.Books.ProjectTo<GetBookDto>(this.mapper.ConfigurationProvider)
