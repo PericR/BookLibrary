@@ -9,7 +9,7 @@ namespace BookLibrary.Entities
     {
         public int Id { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
-        public Book BookId { get; set; }
-        public User UserId { get; set; }
+        public Book Book { get; set; }
+        public User User { get; set; }
     }
 }
