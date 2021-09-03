@@ -22,6 +22,7 @@ namespace BookLibrary.Extensions
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddScoped<IAuthService, AuthService>();
+
             services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(config.GetConnectionString("sqlConnection"));

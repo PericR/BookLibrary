@@ -21,6 +21,7 @@ namespace BookLibrary
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAplicationServices(Configuration);
+            services.AddIdentityServices(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
