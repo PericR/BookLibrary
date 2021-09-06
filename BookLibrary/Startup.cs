@@ -55,6 +55,8 @@ namespace BookLibrary
 
             app.UseRouting();
 
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
+
             app.UseAuthentication();
 
             app.UseAuthorization();
