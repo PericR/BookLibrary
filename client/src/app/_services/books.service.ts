@@ -7,14 +7,18 @@ import { environment } from 'src/environments/environment';
 })
 export class BooksService {
   baseUrl = environment.apiUrl;
-  
+
   constructor(private httpClient: HttpClient) { }
 
   getBooks() {
     return this.httpClient.get(this.baseUrl + 'book/books');
   }
 
-  getBook(id: string){
+  getBook(id: string) {
     return this.httpClient.get(this.baseUrl + 'book/book/' + id);
+  }
+
+  buyBook() {
+
   }
 }
