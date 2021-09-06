@@ -23,7 +23,6 @@ export class BookComponent implements OnInit {
   getBook(){
     this.booksService.getBook(this.route.snapshot.paramMap.get('id')).subscribe(book => {
       this.book = book;
-      console.log(this.book);
       this.getBookInfoFromGoogleBooks(book['isbn']);
     }, error =>{
       console.log(error);
@@ -38,6 +37,10 @@ export class BookComponent implements OnInit {
     }, error => {
       console.log(error);
     })
+  }
+
+  buyBook(){
+    this.booksService.buyBook();
   }
 
 }

@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 })
 export class BooksService {
   baseUrl = environment.apiUrl;
+  user: any;
 
   constructor(private httpClient: HttpClient) { }
 
@@ -19,6 +20,7 @@ export class BooksService {
   }
 
   buyBook() {
-
+    this.user = JSON.parse(localStorage.getItem('user'));
+    console.log(this.user['token']['result']);
   }
 }
