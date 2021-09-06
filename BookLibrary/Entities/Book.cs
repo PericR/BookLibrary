@@ -17,5 +17,6 @@ namespace BookLibrary.Entities
         public double Price { get; set; }
         public DateTime PublishedAt { get; set; }
         public DateTime Created { get; set; } = DateTime.Now;
+        public ICollection<Invoice> Invoices { get; set; }
     }
 }
