@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210902115403_AddedBookPrice")]
-    partial class AddedBookPrice
+    [Migration("20210905094913_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,7 @@ namespace BookLibrary.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Author")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
@@ -34,9 +35,11 @@ namespace BookLibrary.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Genre")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Price")
@@ -51,6 +54,33 @@ namespace BookLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("BookLibrary.Entities.Invoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("BookLibrary.Entities.User", b =>
@@ -151,15 +181,15 @@ namespace BookLibrary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "38b3cec5-8b98-4077-8bde-79fa371fc363",
-                            ConcurrencyStamp = "1e549493-5225-43c8-bf12-25ddd661d350",
+                            Id = "8b9002c4-4666-435b-9fe5-c2e876d0f1ac",
+                            ConcurrencyStamp = "6b6c2ca8-5e44-4ac0-9604-322d1308f326",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "717fc3f2-e789-48a2-a244-3f3fbcbbe21a",
-                            ConcurrencyStamp = "fc96e8dd-2207-4a64-8ade-bd5e0ea44f6a",
+                            Id = "f82bb9f0-9308-4517-a9ee-449681895d6b",
+                            ConcurrencyStamp = "c3538c16-b983-4945-9895-e0c59ccf1017",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -265,6 +295,23 @@ namespace BookLibrary.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("BookLibrary.Entities.Invoice", b =>
+                {
+                    b.HasOne("BookLibrary.Entities.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookLibrary.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

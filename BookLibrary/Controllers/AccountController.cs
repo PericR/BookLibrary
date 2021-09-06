@@ -39,7 +39,7 @@ namespace BookLibrary.Controllers
                 return BadRequest(result.Errors);
             }
 
-            await this.userManager.AddToRoleAsync(user, "Visitor");
+            await this.userManager.AddToRoleAsync(user, "Administrator");
 
             return Ok();
         }
