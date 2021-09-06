@@ -5,8 +5,8 @@ import { BookComponent } from './book/book.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
-  { path: 'book', component: BookListComponent},
-  { path: 'book/:id', component: BookComponent},
+  { path: 'books', component: BookListComponent},
+  { path: 'books/:id', component: BookComponent},
   { path: 'register', component: RegisterComponent}
 ];
 
