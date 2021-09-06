@@ -1,3 +1,8 @@
-<ul>
-    <li *ngFor="let book of books">{{book.name}}</li>
-</ul>
+<div class="container">
+    <div class="list-group">
+        <a *ngFor="let book of books" class="list-group-item list-group-item-action">
+            {{book.name}}
+            <p>{{book.description}}</p>
+        </a>
+    </div>
+</div>

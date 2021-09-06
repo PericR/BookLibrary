@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BookComponent } from './book/book.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    BookListComponent
+    BookListComponent,
+    BookComponent
   ],
   imports: [
     BrowserModule,
