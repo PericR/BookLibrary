@@ -7,10 +7,20 @@ import { environment } from 'src/environments/environment';
 })
 export class BooksService {
   baseUrl = environment.apiUrl;
-  
+  user: any;
+
   constructor(private httpClient: HttpClient) { }
 
   getBooks() {
     return this.httpClient.get(this.baseUrl + 'book/books');
+  }
+
+  getBook(id: string) {
+    return this.httpClient.get(this.baseUrl + 'book/book/' + id);
+  }
+
+  buyBook() {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    console.log(this.user['token']['result']);
   }
 }

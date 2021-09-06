@@ -19,7 +19,7 @@ namespace BookLibrary.Controllers
             this.bookService = bookService;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("add-book")]
         public async Task<ActionResult> AddBook(AddBookDto addBookDto)
         {

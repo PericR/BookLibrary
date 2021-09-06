@@ -1,6 +1,6 @@
 <div class="container">
     <div class="list-group">
-        <a *ngFor="let book of books" class="list-group-item list-group-item-action">
+        <a *ngFor="let book of books" class="list-group-item list-group-item-action" routerLink='{{book.id}}'>
             {{book.name}}
             <p>{{book.description}}</p>
         </a>

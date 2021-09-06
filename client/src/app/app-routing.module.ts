@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BookListComponent } from './book-list/book-list.component';
+import { BookComponent } from './book/book.component';
+import { RegisterComponent } from './register/register.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'books', component: BookListComponent},
+  { path: 'books/:id', component: BookComponent},
+  { path: 'register', component: RegisterComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+    <div class="container">
+        <a class="navbar-brand" routerLink='/' routerLinkActive='active'>Books</a>
+
+        <ul class="navbar-nav mr-auto">
+            <ng-container>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink='/books' routerLinkActive='active'>Books</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink='/register' routerLinkActive='active'>Register</a>
+                </li>
+            </ng-container>
+        </ul>
+
+        <form #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
+            <input name="username" [(ngModel)]="model.username" class="form-control mr-2" type="text"
+                placeholder="Username">
+            <input name="password" [(ngModel)]="model.password" class="form-control mr-2" type="password"
+                placeholder="Password">
+            <button class="btn btn-success mr-2" type="submit">Login</button>
+        </form>
+    </div>
+</nav>
