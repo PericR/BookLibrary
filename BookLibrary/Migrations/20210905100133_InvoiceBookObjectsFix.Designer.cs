@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210902075834_InsertedRoles")]
-    partial class InsertedRoles
+    [Migration("20210905100133_InvoiceBookObjectsFix")]
+    partial class InvoiceBookObjectsFix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -25,6 +25,7 @@ namespace BookLibrary.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Author")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
@@ -34,10 +35,15 @@ namespace BookLibrary.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Genre")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("REAL");
 
                     b.Property<DateTime>("PublishedAt")
                         .HasColumnType("TEXT");
@@ -48,6 +54,33 @@ namespace BookLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("BookLibrary.Entities.Invoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("Invoices");
                 });
 
             modelBuilder.Entity("BookLibrary.Entities.User", b =>
@@ -148,15 +181,15 @@ namespace BookLibrary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "915544de-6130-47cd-bc7a-9a15bf6db452",
-                            ConcurrencyStamp = "575f6681-db60-4e05-8b3f-143caf958343",
+                            Id = "1c18eec7-91e2-4052-8cf8-7808eb9a1747",
+                            ConcurrencyStamp = "61d68504-6f32-49b0-a127-8055e3f455c5",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "a8ffa38e-6b2c-4904-bac4-dbd95859a220",
-                            ConcurrencyStamp = "62dc9123-c2a7-44b8-a8d9-1fb17d908670",
+                            Id = "1c5f8b28-0c72-42cd-9296-4180ba7c7c01",
+                            ConcurrencyStamp = "c2eee848-a647-4817-b65c-fbbd1112ebb9",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -264,6 +297,23 @@ namespace BookLibrary.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("BookLibrary.Entities.Invoice", b =>
+                {
+                    b.HasOne("BookLibrary.Entities.Book", "Book")
+                        .WithMany("Invoices")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookLibrary.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -313,6 +363,11 @@ namespace BookLibrary.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BookLibrary.Entities.Book", b =>
+                {
+                    b.Navigation("Invoices");
                 });
 #pragma warning restore 612, 618
         }

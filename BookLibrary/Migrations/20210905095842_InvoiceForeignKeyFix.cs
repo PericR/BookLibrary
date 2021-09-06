@@ -2,36 +2,29 @@
 
 namespace BookLibrary.Migrations
 {
-    public partial class AddedBookPrice : Migration
+    public partial class InvoiceForeignKeyFix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "915544de-6130-47cd-bc7a-9a15bf6db452");
+                keyValue: "8b9002c4-4666-435b-9fe5-c2e876d0f1ac");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "a8ffa38e-6b2c-4904-bac4-dbd95859a220");
-
-            migrationBuilder.AddColumn<double>(
-                name: "Price",
-                table: "Books",
-                type: "REAL",
-                nullable: false,
-                defaultValue: 0.0);
+                keyValue: "f82bb9f0-9308-4517-a9ee-449681895d6b");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "38b3cec5-8b98-4077-8bde-79fa371fc363", "1e549493-5225-43c8-bf12-25ddd661d350", "Visitor", "VISITOR" });
+                values: new object[] { "14ac530d-ae38-4d87-a1bb-347feb6cafba", "b481b48b-75bc-414c-b1d2-a6bc8c3a0cac", "Visitor", "VISITOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "717fc3f2-e789-48a2-a244-3f3fbcbbe21a", "fc96e8dd-2207-4a64-8ade-bd5e0ea44f6a", "Administrator", "ADMINISTRATOR" });
+                values: new object[] { "cfc5d137-9fe5-4bf0-8e82-51e8c68d3d89", "152296f5-fa07-4fc4-ab52-75be6a3c7a7d", "Administrator", "ADMINISTRATOR" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -39,26 +32,22 @@ namespace BookLibrary.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "38b3cec5-8b98-4077-8bde-79fa371fc363");
+                keyValue: "14ac530d-ae38-4d87-a1bb-347feb6cafba");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "717fc3f2-e789-48a2-a244-3f3fbcbbe21a");
-
-            migrationBuilder.DropColumn(
-                name: "Price",
-                table: "Books");
+                keyValue: "cfc5d137-9fe5-4bf0-8e82-51e8c68d3d89");
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "915544de-6130-47cd-bc7a-9a15bf6db452", "575f6681-db60-4e05-8b3f-143caf958343", "Visitor", "VISITOR" });
+                values: new object[] { "8b9002c4-4666-435b-9fe5-c2e876d0f1ac", "6b6c2ca8-5e44-4ac0-9604-322d1308f326", "Visitor", "VISITOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "a8ffa38e-6b2c-4904-bac4-dbd95859a220", "62dc9123-c2a7-44b8-a8d9-1fb17d908670", "Administrator", "ADMINISTRATOR" });
+                values: new object[] { "f82bb9f0-9308-4517-a9ee-449681895d6b", "c3538c16-b983-4945-9895-e0c59ccf1017", "Administrator", "ADMINISTRATOR" });
         }
     }
 }

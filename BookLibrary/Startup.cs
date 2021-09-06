@@ -3,6 +3,7 @@ using BookLibrary.Helpers;
 using BookLibrary.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NLog;
 using System.IO;
+using System.Security.Claims;
 
 namespace BookLibrary
 {
@@ -28,6 +30,8 @@ namespace BookLibrary
         {
             services.AddAplicationServices(Configuration);
             services.AddIdentityServices(Configuration);
+            services.Configure<IdentityOptions>(options =>
+                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
