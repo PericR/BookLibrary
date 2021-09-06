@@ -23,6 +23,7 @@ namespace BookLibrary.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Author")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
@@ -32,9 +33,11 @@ namespace BookLibrary.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Genre")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Price")
@@ -57,20 +60,23 @@ namespace BookLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("BookIdId")
+                    b.Property<int>("BookId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserIdId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookIdId");
+                    b.HasIndex("BookId");
 
-                    b.HasIndex("UserIdId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Invoices");
                 });
@@ -173,15 +179,15 @@ namespace BookLibrary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "36dd8de5-290a-46b5-90bf-84a4809ac292",
-                            ConcurrencyStamp = "1eb91c64-39ed-483c-ae9f-d57abe15eeea",
+                            Id = "1c18eec7-91e2-4052-8cf8-7808eb9a1747",
+                            ConcurrencyStamp = "61d68504-6f32-49b0-a127-8055e3f455c5",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "84d6657c-c69d-4817-97f4-920e4de52fb2",
-                            ConcurrencyStamp = "48118d08-93d1-46c6-b139-2288452225d3",
+                            Id = "1c5f8b28-0c72-42cd-9296-4180ba7c7c01",
+                            ConcurrencyStamp = "c2eee848-a647-4817-b65c-fbbd1112ebb9",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -291,17 +297,19 @@ namespace BookLibrary.Migrations
 
             modelBuilder.Entity("BookLibrary.Entities.Invoice", b =>
                 {
-                    b.HasOne("BookLibrary.Entities.Book", "BookId")
+                    b.HasOne("BookLibrary.Entities.Book", "Book")
+                        .WithMany("Invoices")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BookLibrary.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("BookIdId");
+                        .HasForeignKey("UserId1");
 
-                    b.HasOne("BookLibrary.Entities.User", "UserId")
-                        .WithMany()
-                        .HasForeignKey("UserIdId");
+                    b.Navigation("Book");
 
-                    b.Navigation("BookId");
-
-                    b.Navigation("UserId");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -353,6 +361,11 @@ namespace BookLibrary.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BookLibrary.Entities.Book", b =>
+                {
+                    b.Navigation("Invoices");
                 });
 #pragma warning restore 612, 618
         }
