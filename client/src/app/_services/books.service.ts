@@ -13,4 +13,8 @@ export class BooksService {
   getBooks() {
     return this.httpClient.get(this.baseUrl + 'book/books');
   }
+
+  getBook(id: string){
+    return this.httpClient.get(this.baseUrl + 'book/book/' + id);
+  }
 }
