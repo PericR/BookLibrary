@@ -27,7 +27,7 @@ namespace BookLibrary.Controllers
             return Ok();
         }
 
-        [Authorize(Roles ="Visitor, Administrator")]
+        //[Authorize(Roles ="Visitor, Administrator")]
         [HttpGet("books")]
         public async Task<ActionResult<IEnumerable<GetBookDto>>> GetBooks()
         {
