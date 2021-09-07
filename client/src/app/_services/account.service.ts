@@ -40,6 +40,13 @@ export class AccountService {
 
   setCurrentUser(user: User) {
     localStorage.setItem('token', JSON.stringify(user['token']['result']));
+    localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.currentUserSource.next(null);
   }
 }
