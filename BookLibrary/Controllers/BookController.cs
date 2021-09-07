@@ -34,7 +34,7 @@ namespace BookLibrary.Controllers
             var books = await this.bookService.GetBooksAsync();
             return Ok(books);
         }
-
+        [Authorize(Roles ="Visitor, Administrator")]
         [HttpGet("book/{id}")]
         public async Task<ActionResult<GetBookDto>> GetBookById(int id)
         {

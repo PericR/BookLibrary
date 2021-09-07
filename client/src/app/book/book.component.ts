@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Book } from '../_models/book';
 import { BooksService } from '../_services/books.service';
 
 @Component({
@@ -9,12 +10,13 @@ import { BooksService } from '../_services/books.service';
   styleUrls: ['./book.component.css']
 })
 export class BookComponent implements OnInit {
-  book: any;
-  bookFromGoogle: any;
+  book: Book;
+  bookInfoFromGoogle: any;
   description: string;
   rating: string;
 
   constructor(private booksService: BooksService, private route: ActivatedRoute, private http: HttpClient) { }
+  
 
   ngOnInit(): void {
     this.getBook();
@@ -23,24 +25,19 @@ export class BookComponent implements OnInit {
   getBook(){
     this.booksService.getBook(this.route.snapshot.paramMap.get('id')).subscribe(book => {
       this.book = book;
-      this.getBookInfoFromGoogleBooks(book['isbn']);
-    }, error =>{
-      console.log(error);
+      this.booksService.getBookInfoFromGoogleBooks(book.isbn).subscribe(response => {
+        this.rating = response['items'][0]['volumeInfo']['averageRating'];
+        this.description = response['items'][0]['volumeInfo']['description'];
+      })
     });
   }
 
-  getBookInfoFromGoogleBooks(isbn: string) {
-    this.http.get('https://www.googleapis.com/books/v1/volumes?q=' + isbn).subscribe(response => {
-      this.bookFromGoogle = response;
-      this.rating = this.bookFromGoogle['items'][0]['volumeInfo']['averageRating'];
-      this.description = this.bookFromGoogle['items'][0]['volumeInfo']['description'];
+  buyBook(){
+    this.booksService.buyBook(this.book.id).subscribe(response => {
+      console.log(response);
     }, error => {
       console.log(error);
     })
-  }
-
-  buyBook(){
-    this.booksService.buyBook();
   }
 
 }
