@@ -10,7 +10,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NLog;
+using System;
 using System.IO;
+using System.Reflection;
 using System.Security.Claims;
 
 namespace BookLibrary
@@ -35,7 +37,17 @@ namespace BookLibrary
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookLibrary", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo 
+                { 
+                    Title = "BookLibrary", 
+                    Version = "v1" ,
+                    Description = "Api to help manage bookstore.",
+                    TermsOfService = new Uri("https://opensource.org/licenses/OSL-3.0"),
+                });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 

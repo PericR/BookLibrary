@@ -174,15 +174,15 @@ namespace BookLibrary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "fd88ce53-31ad-4ef2-94bd-3dbcf3c025e8",
-                            ConcurrencyStamp = "78fdbdc1-5de2-458d-a0bb-c9606086b956",
+                            Id = "7f580308-6ac2-4646-a5f0-7e2a332e11d4",
+                            ConcurrencyStamp = "989f5151-c3ce-4679-9adf-fda203aca8a5",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "0ebfc4ac-7a03-4d08-8634-9dea6badee72",
-                            ConcurrencyStamp = "0ab0389f-44e7-4114-92e4-108f0d3d09eb",
+                            Id = "6cad01da-a4e3-4ea9-a250-99fe181e2a22",
+                            ConcurrencyStamp = "fd5714dd-4e11-431d-a392-938b19690efc",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
