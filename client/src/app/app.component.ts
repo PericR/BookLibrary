@@ -9,7 +9,7 @@ import { AccountService } from './_services/account.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService) { }
 
   ngOnInit(): void {
     this.setCurrentUser();
@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
 
   setCurrentUser() {
     const user: User = JSON.parse(localStorage.getItem('user'));
-    this.accountService.setCurrentUser(user);
+    if (user) {
+      this.accountService.setCurrentUser(user);
+    }
   }
 }

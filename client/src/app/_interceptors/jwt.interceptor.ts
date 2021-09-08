@@ -24,6 +24,8 @@ export class JwtInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let currentUser: User;
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => currentUser = user);
+
+    //Checking for current user and only for urls that are pointed toward out API
     if(currentUser && this.isValidUrl(request.url.slice(0, this.localUrl.length))){
       request = request.clone({
         setHeaders: {
