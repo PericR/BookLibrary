@@ -9,7 +9,7 @@ namespace BookLibrary.Interfaces
     public interface IInvoiceService
     {
         Task AddInvoice(AddInvoiceDto addInvoiceDto);
-        IEnumerable<GetInvoiceDto> GetInvoicesByUserId(string userId);
+        IEnumerable<GetInvoiceDto> GetInvoicesByUserId(Guid userId);
         IEnumerable<GetInvoiceDto> GetInvoiceByBookId(int bookId);
         Task<GetInvoiceDto> GetInvoiceById(int id); 
     }

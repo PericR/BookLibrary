@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BookLibrary</name>
+    </assembly>
+    <members>
+        <member name="M:BookLibrary.Controllers.AccountController.Register(BookLibrary.DTOs.UserRegistrationDto)">
+            <summary>
+            Registers new User.
+            Uses asp.net core Identity framework.
+            </summary>
+            <param name="userRegistrationDto">User registration data transfer object</param>
+            <returns></returns>
+            <response code="200">User added to database successfully.</response>
+            <response code="400">Something went wrong in the proces of adding user.</response>
+        </member>
+        <member name="M:BookLibrary.Controllers.AccountController.Login(BookLibrary.DTOs.UserLoginDto)">
+            <summary>
+            Login users functionality.
+            Uses asp.net core Identity framework.
+            </summary>
+            <param name="userLoginDto">Data Transfer Object for loging user to application</param>
+            <returns>JWT with userName and user roles</returns>
+            <response code="200">User successfully loged in the app</response>
+            <response code="400">Something went wrong in the login proces, probably bad username or password</response>
+        </member>
+        <member name="M:BookLibrary.Controllers.AccountController.Logout">
+            <summary>
+            Logout user functionality.
+            Uses asp.net core Identity framework.
+            </summary>
+            <returns></returns>
+            <response code="200">Logged out successfully</response>
+        </member>
+        <member name="M:BookLibrary.Controllers.BookController.AddBook(BookLibrary.DTOs.AddBookDto)">
+            <summary>
+            Adds book to the database
+            </summary>
+            <param name="addBookDto">Data Transfer Object for book to be added to database</param>
+            <returns></returns>
+            <response code="200">Book is added successfully</response>
+            <response code="401">User probably isn't loged in with required role</response>
+        </member>
+        <member name="M:BookLibrary.Controllers.BookController.GetBooks">
+            <summary>
+            Gets list of all books from database in JSON format.
+            </summary>
+            <returns>
+            JSON list of all books if user is Authorized.
+            </returns>
+            <response code="200">JSON list of all books from database</response>
+            <response code="401">User probably isn't loged in with required role</response>
+        </member>
+        <member name="M:BookLibrary.Controllers.BookController.GetBookById(System.Int32)">
+            <summary>
+            Gets book by its id.
+            </summary>
+            <param name="id"></param>
+            <returns>Book by id number</returns>
+            <response code="200">Book from database</response>
+            <response code="401">User probably isn't loged in with required role</response>
+        </member>
+        <member name="M:BookLibrary.Controllers.InvoiceController.AddInvoice(BookLibrary.DTOs.AddInvoiceDto,System.Int32)">
+            <summary>
+            Adds new invoice to the database
+            </summary>
+            <param name="addInvoiceDto">Empty JSON object that will be filled with data from database</param>
+            <param name="bookId">Book id</param>
+            <returns></returns>
+            <response code="200">Invoice added successfully</response>
+            <response code="400">Your user or book object might be null.</response>
+        </member>
+        <member name="M:BookLibrary.Controllers.InvoiceController.GetInvoicesByBookId(System.Int32)">
+            <summary>
+            Gets all invoices by book id
+            </summary>
+            <param name="bookId">Book id</param>
+            <returns></returns>
+            <response code="200">Returns all invoices for given book, in JSON format. Empty if no book was found</response>
+        </member>
+        <member name="M:BookLibrary.Controllers.InvoiceController.GetInvoicesByUserId(System.Guid)">
+            <summary>
+            Get all invoices by user id (Guid)
+            </summary>
+            <param name="userId">User id (Guid)</param>
+            <returns></returns>
+            <response code="200">Returns all invoices for given user id, in JSON format. Empty if no book was found</response>
+        </member>
+        <member name="M:BookLibrary.Controllers.InvoiceController.GetInvoiceById(System.Int32)">
+            <summary>
+            Gets one invoice by its id
+            </summary>
+            <param name="id">Id for the given invoice in database</param>
+            <returns></returns>
+            <response code="200">Returns JSON representation for given invoice</response>
+        </member>
+    </members>
+</doc>
