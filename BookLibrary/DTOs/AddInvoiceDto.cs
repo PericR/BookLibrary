@@ -9,6 +9,6 @@ namespace BookLibrary.DTOs
     public class AddInvoiceDto
     {
         public Book Book{ get; set; }
-        public User User { get; set; }
+        public string UserId { get; set; }
     }
 }

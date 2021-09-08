@@ -18,8 +18,6 @@ export class BookListComponent implements OnInit {
     }, error =>{
       console.log(error);
     });
-
-    console.log(this.books);
   }
 
 }

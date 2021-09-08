@@ -28,7 +28,17 @@ namespace BookLibrary.Controllers
             this.authService = authService;
         }
 
+        /// <summary>
+        /// Registers new User.
+        /// Uses asp.net core Identity framework.
+        /// </summary>
+        /// <param name="userRegistrationDto">User registration data transfer object</param>
+        /// <returns></returns>
+        /// <response code="200">User added to database successfully.</response>
+        /// <response code="400">Something went wrong in the proces of adding user.</response>
         [HttpPost("register")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<ActionResult> Register(UserRegistrationDto userRegistrationDto)
         {
             User user = this.mapper.Map<User>(userRegistrationDto);
@@ -41,10 +51,22 @@ namespace BookLibrary.Controllers
 
             await this.userManager.AddToRoleAsync(user, "Administrator");
 
-            return Ok();
+            User newUser = await this.userManager.FindByNameAsync(userRegistrationDto.UserName);
+
+            return Ok((new { Token = this.authService.CreateToken(newUser) }));
         }
 
+        /// <summary>
+        /// Login users functionality.
+        /// Uses asp.net core Identity framework.
+        /// </summary>
+        /// <param name="userLoginDto">Data Transfer Object for loging user to application</param>
+        /// <returns>JWT with userName and user roles</returns>
+        /// <response code="200">User successfully loged in the app</response>
+        /// <response code="400">Something went wrong in the login proces, probably bad username or password</response>
         [HttpPost("login")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public async Task<IActionResult> Login(UserLoginDto userLoginDto)
         {
             if (!ModelState.IsValid)
@@ -64,7 +86,14 @@ namespace BookLibrary.Controllers
             }
         }
 
+        /// <summary>
+        /// Logout user functionality.
+        /// Uses asp.net core Identity framework.
+        /// </summary>
+        /// <returns></returns>
+        /// <response code="200">Logged out successfully</response>
         [HttpPost("logout")]
+        [ProducesResponseType(200)]
         public async Task<IActionResult> Logout()
         {
             await this.signInManager.SignOutAsync();

@@ -3,14 +3,16 @@ using System;
 using BookLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210907103941_InvoiceFixRemoved")]
+    partial class InvoiceFixRemoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,8 +68,8 @@ namespace BookLibrary.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -174,15 +176,15 @@ namespace BookLibrary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7f580308-6ac2-4646-a5f0-7e2a332e11d4",
-                            ConcurrencyStamp = "989f5151-c3ce-4679-9adf-fda203aca8a5",
+                            Id = "c09ccea7-f255-4270-a6e8-1b5d10f131a2",
+                            ConcurrencyStamp = "71ff0f5f-968d-4ae8-b4ea-d71b50b70e39",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "6cad01da-a4e3-4ea9-a250-99fe181e2a22",
-                            ConcurrencyStamp = "fd5714dd-4e11-431d-a392-938b19690efc",
+                            Id = "d3a33c36-d535-47ae-ab7d-97e880c46b53",
+                            ConcurrencyStamp = "e59dd1aa-4aa4-46a9-9d4d-e083843489f4",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

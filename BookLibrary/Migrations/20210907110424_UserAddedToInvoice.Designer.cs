@@ -3,14 +3,16 @@ using System;
 using BookLibrary.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookLibrary.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210907110424_UserAddedToInvoice")]
+    partial class UserAddedToInvoice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -69,9 +71,14 @@ namespace BookLibrary.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("UserId1")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Invoices");
                 });
@@ -174,15 +181,15 @@ namespace BookLibrary.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7f580308-6ac2-4646-a5f0-7e2a332e11d4",
-                            ConcurrencyStamp = "989f5151-c3ce-4679-9adf-fda203aca8a5",
+                            Id = "fd92376d-12ce-48ee-8dc1-2e900b3089af",
+                            ConcurrencyStamp = "eb9512af-b156-49ea-86d3-dcb34be68cf5",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
-                            Id = "6cad01da-a4e3-4ea9-a250-99fe181e2a22",
-                            ConcurrencyStamp = "fd5714dd-4e11-431d-a392-938b19690efc",
+                            Id = "886c36a9-8d08-48b5-9d36-06760d167a69",
+                            ConcurrencyStamp = "987e7fad-585d-4c63-804b-04fd0a090107",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -298,7 +305,13 @@ namespace BookLibrary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("BookLibrary.Entities.User", "User")
+                        .WithMany("Invoices")
+                        .HasForeignKey("UserId1");
+
                     b.Navigation("Book");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -353,6 +366,11 @@ namespace BookLibrary.Migrations
                 });
 
             modelBuilder.Entity("BookLibrary.Entities.Book", b =>
+                {
+                    b.Navigation("Invoices");
+                });
+
+            modelBuilder.Entity("BookLibrary.Entities.User", b =>
                 {
                     b.Navigation("Invoices");
                 });

@@ -17,6 +17,6 @@ namespace BookLibrary.Entities
         public int BookId { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
     }
 }

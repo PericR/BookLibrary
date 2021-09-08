@@ -34,7 +34,7 @@ namespace BookLibrary.Services
 
         public IEnumerable<GetInvoiceDto> GetInvoiceByBookId(int bookId)
         {
-            var invoices = this.dataContext.Invoices.ProjectTo<GetInvoiceDto>(this.mapper.ConfigurationProvider).AsEnumerable().Where(i => i.Book.Id == bookId).ToList();
+            var invoices = this.dataContext.Invoices.ProjectTo<GetInvoiceDto>(this.mapper.ConfigurationProvider).AsEnumerable().Where(i => i.BookId == bookId).ToList();
             return invoices;
         }
 
@@ -44,9 +44,9 @@ namespace BookLibrary.Services
             return this.mapper.Map<GetInvoiceDto>(invoice);
         }
 
-        public IEnumerable<GetInvoiceDto> GetInvoicesByUserId(string userId)
+        public IEnumerable<GetInvoiceDto> GetInvoicesByUserId(Guid userId)
         {
-            var invoices = this.dataContext.Invoices.ProjectTo<GetInvoiceDto>(this.mapper.ConfigurationProvider).AsEnumerable().Where(i => i.User.Id == userId).ToList();
+            var invoices = this.dataContext.Invoices.ProjectTo<GetInvoiceDto>(this.mapper.ConfigurationProvider).AsEnumerable().Where(i => i.UserId == userId).ToList();
             return invoices;
         }
     }
